@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
     entry: './src/pc.js',
@@ -44,6 +45,12 @@ module.exports = {
             title: 'PC App',
             meta: {
                 description: 'PC App description'
+            }
+        }),
+        new ModuleFederationPlugin({
+            name: 'PcApp',
+            remotes: {
+                PressMeApp: 'PressMeApp@http://localhost:9001/remoteEntry.js'
             }
         })
     ]

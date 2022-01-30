@@ -1,12 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
     entry: './src/hello-world.js',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: '',
+        publicPath: 'http://localhost:9001/',
         clean: true
     },
     mode: 'development',
@@ -49,5 +50,12 @@ module.exports = {
                 description: 'Press Me App description'
             }
         }),
+        new ModuleFederationPlugin({
+            name: 'PressMeApp',
+            filename: 'remoteEntry.js',
+            exposes: {
+                './PressMeApp': './src/components/hello-world-button/hello-world.js'
+            }
+        })
     ]
 }

@@ -1,13 +1,14 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
     entry: './src/hello-world.js',
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: '/static/',
+        publicPath: 'http://localhost:9001/',
         clean: true
     },
     mode: 'production',
@@ -46,6 +47,13 @@ module.exports = {
             title: 'Press Me App',
             meta: {
                 description: 'Press Me App description'
+            }
+        }),
+        new ModuleFederationPlugin({
+            name: 'PressMeApp',
+            filename: 'remoteEntry.js',
+            exposes: {
+                './PressMeApp': './src/components/hello-world-button/hello-world.js'
             }
         })
     ]
