@@ -9,9 +9,8 @@ pc.render();
 heading.render(_.upperFirst('pc image'));
 
 
-if (process.env.NODE_ENV === 'production') {
-    console.log('production');
-}
-if (process.env.NODE_ENV === 'development') {
-    console.log('development');
-}
+import('PressMeApp/PressMeApp').then(module => {
+    const PressMeAppModule = module.default;
+    const pressMeApp = new PressMeAppModule();
+    pressMeApp.render();
+});
