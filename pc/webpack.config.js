@@ -3,9 +3,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/pc.js',
     output: {
-        filename: 'bundle.[contenthash].js',
+        filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, './dist'),
         publicPath: '/static/',
         clean: true
@@ -28,31 +28,10 @@ module.exports = {
                 }
             },
             {
-                test: /\.txt/,
-                type: 'asset/source',
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    MiniCssExtractPlugin.loader, 'css-loader'
-                ]
-            },
-            {
                 test: /\.scss$/,
                 use: [
                     MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
                 ]
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/env'],
-                        plugins: ['@babel/plugin-proposal-class-properties']
-                    }
-                }
             }
         ]
     },
@@ -61,9 +40,10 @@ module.exports = {
             filename: '[name].[contenthash].css'
         }),
         new HtmlWebpackPlugin({
-            title: 'Press Me App',
+            filename: 'pc.html',
+            title: 'PC App',
             meta: {
-                description: 'Press Me App description'
+                description: 'PC App description'
             }
         })
     ]

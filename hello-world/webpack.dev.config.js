@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/hello-world.js',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, './dist'),
@@ -11,36 +11,17 @@ module.exports = {
     },
     mode: 'development',
     devServer: {
-        port: 9000,
+        port: 9001,
         static: {
             directory: path.resolve(__dirname, './dist'),
         },
         devMiddleware: {
-            index: 'index.html',
+            index: 'hello-world.html',
             writeToDisk: true
         }
     },
     module: {
         rules: [
-            {
-                test: /\.(jpeg)$/,
-                type: 'asset',
-                parser: {
-                    dataUrlCondition: {
-                        maxSize: 3 * 1024
-                    }
-                }
-            },
-            {
-                test: /\.txt/,
-                type: 'asset/source',
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    'style-loader', 'css-loader'
-                ]
-            },
             {
                 test: /\.scss$/,
                 use: [
@@ -62,6 +43,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
+            filename: 'hello-world.html',
             title: 'Press Me App',
             meta: {
                 description: 'Press Me App description'

@@ -1,0 +1,15 @@
+$font-size: 20px;
+$btn-bakcground: purple;
+$text-color: green;
+
+
+.hello-world-btn {
+    font-size: $font-size;
+    background-color: $btn-bakcground;
+}
+
+.hello-world-text { 
+    font-size: $font-size;
+    color: $text-color;
+    font-weight: bold;
+}
