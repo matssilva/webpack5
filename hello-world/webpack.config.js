@@ -53,7 +53,8 @@ module.exports = {
             name: 'PressMeApp',
             filename: 'remoteEntry.js',
             exposes: {
-                './PressMeApp': './src/components/hello-world-button/hello-world.js'
+                './PressMeApp': './src/components/hello-world-button/hello-world.js',
+                './PressMePage': './src/components/hello-world-page/hello-world-page.js'
             }
         })
     ]

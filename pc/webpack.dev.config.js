@@ -7,7 +7,7 @@ module.exports = {
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: '',
+        publicPath: 'http://localhost:9002/',
         clean: true
     },
     mode: 'development',
@@ -50,8 +50,9 @@ module.exports = {
         }),
         new ModuleFederationPlugin({
             name: 'PcApp',
-            remotes: {
-                PressMeApp: 'PressMeApp@http://localhost:9001/remoteEntry.js'
+            filename: 'remoteEntry.js',
+            exposes: {
+                './PcPage': './src/components/pc-page/pc-page.js'
             }
         })
     ]
