@@ -4,11 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
-    entry: './src/pc.js',
+    entry: './src/image-caption.js',
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: 'http://localhost:9002/',
+        publicPath: 'http://localhost:9003/',
         clean: true
     },
     mode: 'production',
@@ -20,28 +20,12 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(jpeg)$/,
-                type: 'asset',
-                parser: {
-                    dataUrlCondition: {
-                        maxSize: 3 * 1024
-                    }
-                }
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
-                ]
-            },
-            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/env'],
-                        plugins: ['@babel/plugin-proposal-class-properties']
                     }
                 }
             }
@@ -52,20 +36,17 @@ module.exports = {
             filename: '[name].[contenthash].css'
         }),
         new HtmlWebpackPlugin({
-            filename: 'pc.html',
-            title: 'PC App',
+            filename: 'image-caption.html',
+            title: 'Image Caption App',
             meta: {
-                description: 'PC App description'
+                description: 'Image Caption App description'
             }
         }),
         new ModuleFederationPlugin({
-            name: 'PcApp',
+            name: 'ImageCaptionApp',
             filename: 'remoteEntry.js',
             exposes: {
-                './PcPage': './src/components/pc-page/pc-page.js'
-            },
-            remotes: {
-                ImageCaptionApp: 'ImageCaptionApp@http://localhost:9003/remoteEntry.js',
+                './ImageCaption': './src/components/image-caption/image-caption.js'
             }
         })
     ]

@@ -1,9 +1,5 @@
-import PcImage from './components/pc-image/pc-image';
-import Heading from './components/heading/heading';
-import _ from 'lodash';
+import PcPage from './components/pc-page/pc-page.js';
 
-const pc = new PcImage();
-const heading = new Heading();
 
+const pc = new PcPage();
 pc.render();
-heading.render(_.upperFirst('pc image'));

@@ -9,6 +9,12 @@ class PcPage {
 
         pc.render();
         heading.render(_.upperFirst('pc image'));
+
+        import('ImageCaptionApp/ImageCaption').then(module => {
+            const ImageCaption = module.default;
+            const imageCaption = new ImageCaption();
+            imageCaption.render('Matheus');
+        });
     }
 }
 

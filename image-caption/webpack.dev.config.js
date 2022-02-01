@@ -3,41 +3,26 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
-    entry: './src/pc.js',
+    entry: './src/image-caption.js',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: 'http://localhost:9002/',
+        publicPath: 'http://localhost:9003/',
         clean: true
     },
     mode: 'development',
     devServer: {
-        port: 9002,
+        port: 9003,
         static: {
             directory: path.resolve(__dirname, './dist'),
         },
         devMiddleware: {
-            index: 'pc.html',
+            index: 'image-caption.html',
             writeToDisk: true
         }
     },
     module: {
         rules: [
-            {
-                test: /\.(jpeg)$/,
-                type: 'asset',
-                parser: {
-                    dataUrlCondition: {
-                        maxSize: 3 * 1024
-                    }
-                }
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    'style-loader', 'css-loader', 'sass-loader'
-                ]
-            },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
@@ -45,7 +30,6 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/env'],
-                        plugins: ['@babel/plugin-proposal-class-properties']
                     }
                 }
             }
@@ -53,20 +37,17 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            filename: 'pc.html',
+            filename: 'image-caption.html',
             title: 'PC App',
             meta: {
                 description: 'PC App description'
             }
         }),
         new ModuleFederationPlugin({
-            name: 'PcApp',
+            name: 'ImageCaptionApp',
             filename: 'remoteEntry.js',
             exposes: {
-                './PcPage': './src/components/pc-page/pc-page.js'
-            },
-            remotes: {
-                ImageCaptionApp: 'ImageCaptionApp@http://localhost:9003/remoteEntry.js',
+                './ImageCaption': './src/components/image-caption/image-caption.js'
             }
         })
     ]
