@@ -7,10 +7,3 @@ const heading = new Heading();
 
 pc.render();
 heading.render(_.upperFirst('pc image'));
-
-
-import('PressMeApp/PressMeApp').then(module => {
-    const PressMeAppModule = module.default;
-    const pressMeApp = new PressMeAppModule();
-    pressMeApp.render();
-});
